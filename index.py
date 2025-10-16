@@ -1,10 +1,11 @@
 # Importa le dipendenze
 
 import os
+from init_database import engine, text
 
 # Stampa il titolo dell'applicativo
 
-print("PAYMENT HUB\n")
+print("\n\nPAYMENT HUB\n")
 
 # Inizializza il loop per mostrare a video il menù
 
@@ -14,7 +15,7 @@ while loop == True:
 
     # Stampa tutte le voci del menù
 
-    print("1. Mostra tabelle")
+    print("1. Mostra dati")
     print("2. Inserisci dati")
     print("3. Modifica dati")
     print("4. Cancella dati")
@@ -31,7 +32,14 @@ while loop == True:
     # Decide cosa fare in base all'opzione scelta
 
     if response == "1":
-        print("Mostro le tabelle")
+        print("Tabelle\n")
+        with engine.connect() as connection:
+            result = connection.execute(text('SHOW TABLES'))
+            
+            i = 1
+            for single_result in result:
+                print(str(i) + ". " + single_result[0])
+                i = i + 1
     elif response == "2":
         print("Inserisco i dati")
     elif response == "3":
