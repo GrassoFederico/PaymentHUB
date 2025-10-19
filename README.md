@@ -20,11 +20,26 @@ Installare successivamente il modulo MySQL per Python
 pip install mysqlclient
 ```
 
-### SQLAlchemy
+### Python
+
+L'applicazione è interamente scritta in Python, linguaggio di programmazione scaricabile da [questo link](https://www.python.org/downloads/release/python-3135/).
+
+Sono anche presenti:
+
+- SQLAlchemy: sistema per l'ORM in Python.
+- CheeryPy: piccolo Web Framework dove vengono costruite le pagine web per l'applicativo.
+
+### SQLAlchemy (ORM)
 
 È necessario installare SQLAlchemy per poter utilizzare il software.
 
 Se non si dispone di SQLAlchemy è possibile scaricarlo [qui](https://docs.sqlalchemy.org/en/20/intro.html#installation)
+
+### CherryPy (Web Framework)
+
+È necessario installare CherryPy per poter utilizzare il software.
+
+Se non si dispone di CherryPy è possibile scaricarlo [qui](https://cherrypy.dev/)
 
 ### Configurazione
 
