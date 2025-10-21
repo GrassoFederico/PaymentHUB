@@ -235,7 +235,10 @@ jQuery(() => {
     }
 
     // Select AJAX
-    $('select[data-tabella]').on('click', function () {
+    $('select[data-tabella]').one('click', function (e) {
+
+        e.stopImmediatePropagation();
+        e.stopPropagation();
 
         let $select = $(this);
 
@@ -247,7 +250,10 @@ jQuery(() => {
                 tabella: $(this).data('tabella')
             },
             success: function (response) {
+                
+                $select.empty();
                 response.map(function (data) {
+
                     $select.append(`
                         <option value="${data.id}">${data.campo}</option>
                     `);
