@@ -16,7 +16,6 @@
                     <div id="tables" class="list-group"></div>
                 </div>
                 <div id="datatable-container" class="col-10">
-                    <table id="datatable" class="table table-sm"></table>
                 </div>
             </div>
         </div>
@@ -53,11 +52,40 @@
             </div>
         </div>
         <!-- Modale Nazione -->
-        <div id="nazioneModal" class="modal fade" tabindex="-1" aria-labelledby="motoreModalLabel" aria-hidden="true">
+        <div id="nazioneModal" class="modal fade" tabindex="-1" aria-labelledby="nazioneModalLabel" aria-hidden="true">
             <div class="modal-dialog">
-                <form id="frm-crea-motore" action="/motore" method="post" class="modal-content">
+                <form id="frm-crea-nazione" action="/nazione" method="post" class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="motoreModalLabel">Aggiungi motore</h1>
+                        <h1 class="modal-title fs-5" id="nazioneModalLabel">Aggiungi nazione</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group d-flex flex-column mb-3">
+                            <label for="codice_2_caratteri" class="form-label">Codice 2 caratteri</label>
+                            <input name="codice_2_caratteri" class="form-control w-100" list="datalistOptions" id="codice_2_caratteri" placeholder="Inserisci un codice 2 caratteri" required>
+                        </div>
+                        <div class="input-group d-flex flex-column mb-3">
+                            <label for="codice_3_caratteri" class="form-label">Codice 3 caratteri</label>
+                            <input name="codice_3_caratteri" class="form-control w-100" list="datalistOptions" id="codice_3_caratteri" placeholder="Inserisci un codice 3 caratteri" required>
+                        </div>
+                        <div class="input-group d-flex flex-column mb-3">
+                            <label for="codice_numerico" class="form-label">Codice numerico</label>
+                            <input name="codice_numerico" class="form-control w-100" list="datalistOptions" id="codice_numerico" placeholder="Inserisci un codice numerico" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                        <button type="submit" form="frm-crea-nazione" class="btn btn-primary">Inserisci</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Modale Pagamento -->
+        <div id="pagamentoModal" class="modal fade" tabindex="-1" aria-labelledby="pagamentoModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <form id="frm-crea-pagamento" action="/pagamento" method="post" class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="pagamentoModalLabel">Aggiungi pagamento</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -65,14 +93,142 @@
                             <label for="nome" class="form-label">Nome</label>
                             <input name="nome" class="form-control w-100" list="datalistOptions" id="nome" placeholder="Inserisci un nome" required>
                         </div>
-                        <div class="input-group d-flex flex-column">
+                        <div class="input-group d-flex flex-column mb-3">
                             <label for="descrizione" class="form-label">Descrizione</label>
                             <input name="descrizione" class="form-control w-100" list="datalistOptions" id="descrizione" placeholder="Inserisci una descrizione" required>
+                        </div>
+                        <div class="input-group d-flex flex-column mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="1" name="attivo" id="attivo">
+                                <label class="form-check-label" for="attivo">
+                                    Attivo
+                                </label>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
-                        <button type="submit" form="frm-crea-motore" class="btn btn-primary">Inserisci</button>
+                        <button type="submit" form="frm-crea-pagamento" class="btn btn-primary">Inserisci</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Modale Rotta -->
+        <div id="rottaModal" class="modal fade" tabindex="-1" aria-labelledby="rottaModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <form id="frm-crea-rotta" action="/rotta" method="post" class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="rottaModalLabel">Aggiungi rotta</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group d-flex flex-column mb-3">
+                            <label for="successo" class="form-label">Link pagamento completato</label>
+                            <input name="successo" class="form-control w-100" list="datalistOptions" id="successo" placeholder="Inserisci link per il pagamento completato" required>
+                        </div>
+                        <div class="input-group d-flex flex-column mb-3">
+                            <label for="annullamento" class="form-label">Link pagamento annullato</label>
+                            <input name="annullamento" class="form-control w-100" list="datalistOptions" id="annullamento" placeholder="Inserisci link per il pagamento annullato" required>
+                        </div>
+                        <div class="input-group d-flex flex-column mb-3">
+                            <label for="webhook" class="form-label">Webhook</label>
+                            <input name="webhook" class="form-control w-100" list="datalistOptions" id="webhook" placeholder="Inserisci un webhook" required>
+                        </div>
+                        <div class="input-group d-flex flex-column mb-3">
+                            <label for="pagina_pagamento" class="form-label">Link al pagamento</label>
+                            <input name="pagina_pagamento" class="form-control w-100" list="datalistOptions" id="pagina_pagamento" placeholder="Inserisci link al pagamento" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                        <button type="submit" form="frm-crea-rotta" class="btn btn-primary">Inserisci</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Modale Versione -->
+        <div id="versioneModal" class="modal fade" tabindex="-1" aria-labelledby="versioneModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <form id="frm-crea-versione" action="/versione" method="post" class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="versioneModalLabel">Aggiungi versione</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group d-flex flex-column mb-3">
+                            <label for="crea_pagamento" class="form-label">Versione creazione pagamento</label>
+                            <input name="crea_pagamento" type="number" class="form-control w-100" list="datalistOptions" id="crea_pagamento" placeholder="Inserisci la versione di creazione pagamento" required>
+                        </div>
+                        <div class="input-group d-flex flex-column mb-3">
+                            <label for="recupera_pagamento" class="form-label">Versione recupero pagamento</label>
+                            <input name="recupera_pagamento" type="number" class="form-control w-100" list="datalistOptions" id="recupera_pagamento" placeholder="Inserisci la versione del recupero pagamento" required>
+                        </div>
+                        <div class="input-group d-flex flex-column mb-3">
+                            <label for="esegui_pagamento" class="form-label">Versione esecuzione pagamento</label>
+                            <input name="esegui_pagamento" type="number" class="form-control w-100" list="datalistOptions" id="esegui_pagamento" placeholder="Inserisci la versione di esecuzione pagamento" required>
+                        </div>
+                        <div class="input-group d-flex flex-column mb-3">
+                            <label for="verifica_pagamento" class="form-label">Versione verifica pagamento</label>
+                            <input name="verifica_pagamento" type="number" class="form-control w-100" list="datalistOptions" id="verifica_pagamento" placeholder="Inserisci la versione di verifica pagamento" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                        <button type="submit" form="frm-crea-versione" class="btn btn-primary">Inserisci</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Modale URL -->
+        <div id="urlModal" class="modal fade" tabindex="-1" aria-labelledby="urlModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <form id="frm-crea-url" action="/url" method="post" class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="urlModalLabel">Aggiungi URL</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group d-flex flex-column mb-3">
+                            <label for="id_rotta" class="form-label">Rotta</label>
+                            <select data-campo="id" data-tabella="rotta" name="id_rotta" class="form-select w-100" placeholder="Seleziona una rotta" required>
+                            </select>
+                        </div>
+                        <div class="input-group d-flex flex-column mb-3">
+                            <label for="id_versione" class="form-label">Versione</label>
+                            <select data-campo="id" data-tabella="versione" name="id_versione" class="form-select w-100" placeholder="Seleziona una versione" required>
+                            </select>
+                        </div>
+                        <div class="input-group d-flex flex-column mb-3">
+                            <label for="id_nazione" class="form-label">Nazione</label>
+                            <select data-campo="codice_2_caratteri" data-tabella="nazione" name="id_nazione" class="form-select w-100" placeholder="Seleziona una nazione" required>
+                            </select>
+                        </div>
+                        <div class="input-group d-flex flex-column mb-3">
+                            <label for="id_pagamento" class="form-label">Pagamento</label>
+                            <select data-campo="nome" data-tabella="pagamento" name="id_pagamento" class="form-select w-100" placeholder="Seleziona una pagamento" required>
+                            </select>
+                        </div>
+                        <div class="input-group d-flex flex-column mb-3">
+                            <label for="id_motore" class="form-label">Motore</label>
+                            <select data-campo="nome" data-tabella="motore" name="id_motore" class="form-select w-100" placeholder="Seleziona un motore" required>
+                            </select>
+                        </div>
+                        <div class="input-group d-flex flex-column mb-3">
+                            <label for="meta" class="form-label">Metadati</label>
+                            <input name="meta" class="form-control w-100" list="datalistOptions" id="meta" placeholder="Inserisci i metadati" required>
+                        </div>
+                        <div class="input-group d-flex flex-column mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="1" name="test" id="test">
+                                <label class="form-check-label" for="test">
+                                    Test
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                        <button type="submit" form="frm-crea-url" class="btn btn-primary">Inserisci</button>
                     </div>
                 </form>
             </div>
