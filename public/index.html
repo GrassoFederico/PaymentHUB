@@ -15,7 +15,7 @@
                 <div class="col-2">
                     <div id="tables" class="list-group"></div>
                 </div>
-                <div class="col-10">
+                <div id="datatable-container" class="col-10">
                     <table id="datatable" class="table table-sm"></table>
                 </div>
             </div>
@@ -29,6 +29,31 @@
         </div>
         <!-- Modale Motore -->
         <div id="motoreModal" class="modal fade" tabindex="-1" aria-labelledby="motoreModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <form id="frm-crea-motore" action="/motore" method="post" class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="motoreModalLabel">Aggiungi motore</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group d-flex flex-column mb-3">
+                            <label for="nome" class="form-label">Nome</label>
+                            <input name="nome" class="form-control w-100" list="datalistOptions" id="nome" placeholder="Inserisci un nome" required>
+                        </div>
+                        <div class="input-group d-flex flex-column">
+                            <label for="descrizione" class="form-label">Descrizione</label>
+                            <input name="descrizione" class="form-control w-100" list="datalistOptions" id="descrizione" placeholder="Inserisci una descrizione" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                        <button type="submit" form="frm-crea-motore" class="btn btn-primary">Inserisci</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Modale Nazione -->
+        <div id="nazioneModal" class="modal fade" tabindex="-1" aria-labelledby="motoreModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <form id="frm-crea-motore" action="/motore" method="post" class="modal-content">
                     <div class="modal-header">

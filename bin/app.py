@@ -5,7 +5,7 @@ from init import execute_query, execute_statement
 import os
 import cherrypy
 
-cherrypy.config.update({'server.socket_port': 8090})
+cherrypy.config.update({'server.socket_port': 8080})
 cherrypy.engine.restart()
 
 class Web(object):
@@ -43,9 +43,9 @@ class Motore(object):
         )
 
         if (result): 
-            return "Aggiornato".encode('utf8')
+            return '{"message": "Aggiornato"}'.encode('utf8')
         else:
-            return "Impossibile aggiornare".encode('utf8')
+            return '{"message": "Impossibile aggiornare"}'.encode('utf8')
         
     def DELETE(self, ide: str):
         result = execute_statement(
@@ -54,9 +54,9 @@ class Motore(object):
         )
 
         if (result): 
-            return "Cancellato".encode('utf8')
+            return '{"message": "Cancellato"}'.encode('utf8')
         else:
-            return "Impossibile cancellare".encode('utf8')
+            return '{"message": "Impossibile cancellare"}'.encode('utf8')
 
 if __name__ == '__main__':
     conf = {

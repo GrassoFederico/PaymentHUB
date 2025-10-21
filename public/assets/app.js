@@ -28,22 +28,27 @@ jQuery(() => {
                 });
             },
             complete: function () {
+                stopLoader();
+                
                 initDatatables();
             }
         });
     }
 
+    window.dataTable = $('#datatable');
+
     function initDatatables() {
 
         let table = $('#tables').find('.active').first().data('table');
+
+        startLoader();
 
         $.ajax({
             method: 'GET',
             url: `dati/motore`,
             success: function (response) {
-                let dataTable = $('#datatable');
 
-                dataTable.before(`
+                window.dataTable.before(`
                     <div class="d-flex justify-content-between align-items-center">
                         <h5 class="text-uppercase">${table}</h5>
                         <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#${table}Modal">
@@ -53,38 +58,44 @@ jQuery(() => {
                     <hr/>
                 `);
 
-                let th = Object.keys(response[0]).map(function(column) {
-                    return `<th>${column}</th>`
-                }).join('');
+                let th = '';
+                let tr = '';
 
-                th += '<th class="text-end">Azioni</th>';
+                if (response[0]) {
 
-                let tr = response.map(function (row) {
-                    let td = '<tr>';
-
-                    td += Object.entries(row).map(function (data) {
-                        if (data[0] == 'id') {
-                            return `<td>${data[1]}</td>`;
-                        } else {                        
-                            return `<td>
-                                <input data-id="${row.id}" class="form-control form-control-sm" name="${data[0]}" value="${data[1]}">
-                            </td>`;
-                        }
-
+                    th = Object.keys(response[0]).map(function(column) {
+                        return `<th>${column}</th>`
                     }).join('');
 
-                    td += `
-                        <td class="text-end">
-                            <button data-id="${row.id}" class="btn btn-sm btn-danger">Cancella</button>
-                        </td>
-                    `;
+                    th += '<th class="text-end">Azioni</th>';
 
-                    td += '</tr>';
+                    tr = response.map(function (row) {
+                        let td = '<tr>';
 
-                    return td;
-                }).join('');
+                        td += Object.entries(row).map(function (data) {
+                            if (data[0] == 'id') {
+                                return `<td>${data[1]}</td>`;
+                            } else {                        
+                                return `<td>
+                                    <input data-id="${row.id}" class="form-control form-control-sm" name="${data[0]}" value="${data[1]}">
+                                </td>`;
+                            }
 
-                dataTable.append(`
+                        }).join('');
+
+                        td += `
+                            <td class="text-end">
+                                <button data-id="${row.id}" class="btn btn-sm btn-danger">Cancella</button>
+                            </td>
+                        `;
+
+                        td += '</tr>';
+
+                        return td;
+                    }).join('');
+                }
+
+                window.dataTable.append(`
                     <thead>
                         <tr>
                             ${th}
@@ -95,12 +106,14 @@ jQuery(() => {
                     </tbody>
                 `);
 
-                $(dataTable).DataTable();
+                window.dataTable.DataTable();
             },
             complete: function() {
 
+                stopLoader();
+
                 $('input[data-id').on('input', function() {
-                    
+
                     $.ajax({
                         method: 'PUT',
                         url: '/motore',
@@ -108,27 +121,20 @@ jQuery(() => {
                             ide: $(this).data('id'),
                             campo: $(this).attr('name'),
                             valore: $(this).val()
-                        },
-                        success: function(response) {
-                            alert(response);
                         }
                     })
                 });
 
                 $('button[data-id]').on('click', function () {
-                    
+
                     $.ajax({
                         method: 'DELETE',
                         url: `/motore/${$(this).data('id')}`,
-                        success: function(response) {
-                            alert(response);
-
+                        complete: () => {
                             window.location.reload();
                         }
                     })
                 });
-
-                stopLoader();
             }
         });
 
