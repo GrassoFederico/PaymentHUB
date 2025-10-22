@@ -10,7 +10,7 @@ cherrypy.engine.restart()
 
 class Web(object):
     @cherrypy.expose
-    def index(self, tabella):
+    def index(self, tabella = ''):
         return open('public/index.html')
 
 @cherrypy.expose
